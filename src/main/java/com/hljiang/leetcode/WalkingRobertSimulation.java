@@ -36,6 +36,7 @@ public class WalkingRobertSimulation {
         Orientation direction = Orientation.UP_Y;
 
         Set<Axis> obstacleSet = this.convertObstacles(obstacles);
+        int ans = 0;
         for (int cmd : commands) {
             if (cmd == -2) {
                 //逆时针方向旋转
@@ -50,9 +51,11 @@ public class WalkingRobertSimulation {
             if (cmd >= 1 && cmd <= 9) {
                 currentAxis = this.checkForObstacles(currentAxis, cmd, direction, obstacleSet);
             }
+            int distance = currentAxis.getX() * currentAxis.getX() + currentAxis.getY() * currentAxis.getY();
+            ans = Math.max(ans, distance);
         }
+        return ans;
 
-        return currentAxis.getX() * currentAxis.getX() + currentAxis.getY() * currentAxis.getY();
     }
 
     private Set<Axis> convertObstacles(int[][] obstacle) {
@@ -82,14 +85,14 @@ public class WalkingRobertSimulation {
                     break;
             }
             if (obstacleSet.contains(currentAxis)) {
-                System.out.println("next position:" + lastAxis + ";  obstacle:" +
-                        currentAxis + ";  direction:" + direction.name());
-                System.out.println("---------------------------------------------------");
+//                System.out.println("next position:" + lastAxis + ";  obstacle:" +
+//                        currentAxis + ";  direction:" + direction.name());
+                //System.out.println("---------------------------------------------------");
                 return lastAxis;
             }
         }
-        System.out.println("next position:" + currentAxis + ";  direction:" + direction.name());
-        System.out.println("----------------------------------------------------");
+        //System.out.println("next position:" + currentAxis + ";  direction:" + direction.name());
+        //System.out.println("----------------------------------------------------");
         return currentAxis;
     }
 
