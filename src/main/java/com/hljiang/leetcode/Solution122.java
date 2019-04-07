@@ -31,6 +31,11 @@ public class Solution122 {
         return calucate(prices, 0);
     }
 
+    /**
+     * 画图直观的找出价格曲线的峰谷
+     * @param prices
+     * @return
+     */
     public int maxProfitUpdate(int[] prices) {
         List<Integer> peaks = new ArrayList<>();
         List<Integer> valleys = new ArrayList<>();
@@ -79,6 +84,43 @@ public class Solution122 {
         return profit;
     }
 
+    /**
+     * 官方题解，需要n次遍历
+     * @param prices
+     * @return
+     */
+    public int maxProfitMethod2(int[] prices) {
+        int i = 0;
+        int valley = prices[0];
+        int peak = prices[0];
+        int maxprofit = 0;
+        while (i < prices.length - 1) {
+            //其实和我前面思路一致，稍微考虑的复杂了，直接while来做就行，for还需要break
+            while (i < prices.length - 1 && prices[i] >= prices[i + 1])
+                i++;
+            valley = prices[i];
+            while (i < prices.length - 1 && prices[i] <= prices[i + 1])
+                i++;
+            peak = prices[i];
+            maxprofit += peak - valley;
+        }
+        return maxprofit;
+    }
+
+
+    public int maxProfitFinal(int[] prices) {
+        int i = 1;
+        int maxprofit = 0;
+        while (i < prices.length) {
+            int valley = prices[i - 1];
+            if (prices[i] > prices[i - 1]) {
+                maxprofit = maxprofit + (prices[i] - valley);
+            }
+            i++;
+
+        }
+        return maxprofit;
+    }
 
     public static void main(String[] args) {
         Solution122 solution122 = new Solution122();
