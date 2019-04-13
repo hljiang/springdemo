@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/tool"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="propertyConfigurer1"  class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+        <property name="locations">
+                <value>test.properties</value>
+        </property>
+    </bean>
+
+    <bean id="propertyConfigurer2"   class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"></property>
+        <property name="locations">
+            <list>
+                <value>test2.properties</value>
+                <value>multipletest.properties</value>
+            </list>
+        </property>
+    </bean>
+
+<bean id ="propertiesConfig" class="com.hljiang.spring.bean.PropertiesConfig">
+    <property name="testValue" value="aa"></property>
+    <property name="testValue2ForOverride" value="aa"></property>
+    <property name="valueNoAnnotate" value="${a}"></property>
+    <property name="valueNoAnnotateForDefault" value="${b}"></property>
+    <property name="placeHolders" value="${key1}${key2}${key3}"></property>
+</bean>
+
+
+</beans>
